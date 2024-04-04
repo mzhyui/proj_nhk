@@ -10,5 +10,6 @@
 # progress 2
 - target1: combine all audio files into one file
 - target2: use main page to get the url of audio files
-- solution2: get config.xml
-- problem2: error code 403 sometimes
+    - solution: get config.xml
+    - problem: error code 403 sometimes
+        - cause: cookies expired?
