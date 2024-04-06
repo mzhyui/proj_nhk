@@ -33,3 +33,4 @@ https://www.bilibili.com/read/cv1083415/
         - solution: frame rate set above 30
             - problem: broken video frame
     - problem: Failed to update header with correct duration / Failed to update header with correct filesize
+    - assertion: .m2u8 files not updated
