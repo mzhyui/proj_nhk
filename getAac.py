@@ -5,6 +5,7 @@ import re
 from datetime import datetime, timedelta
 import threading
 import xml.etree.ElementTree as ET
+import os
 
 # 指定你要下载的文件的URL
 url = 'https://www.nhk.or.jp/radio/player/?ch=r1'
@@ -104,8 +105,8 @@ else:
     exit(1)
 
 
-print("requesting: ", m3u8_url.replace('master', 'master'))
-response_m3u8 = session.get(m3u8_url.replace('master', 'master'), 
+print("requesting: ", m3u8_url.replace('master', 'master48k'))
+response_m3u8 = session.get(m3u8_url.replace('master', 'master48k'), 
                             headers=headers_m3u8, proxies=proxy)
 
 if response_m3u8.status_code == 200:
@@ -124,7 +125,7 @@ else:
     # exterminate the program
     exit(1)
 
-    
+# exit(1)
 
 # for idx in range(10):
 #     path_parts = re.match(r"(.*/master48k_)(\d+)(\.aac)", aac_path)
@@ -158,7 +159,7 @@ def target_function():
 
 
     if response_aac.status_code == 200:
-        with open(path_parts.groups()[1]+'.aac', 'wb') as file:
+        with open(os.path.join('./download',path_parts.groups()[1]+'.aac'), 'wb') as file:
             file.write(response_aac.content)
         print('response_aac downloaded successfully.')
         # print(response_aac.content)
