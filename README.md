@@ -28,7 +28,7 @@ https://www.bilibili.com/read/cv1083415/
     - solution: jpeg + x264
           - steps: `sudo apt-get install libx264-dev`
           - steps: `./configure --enable-gpl --enable-libx264 --enable-openssl --enable-nonfree` (ssl version >= 3.0.0)
-    - solution: `ffmpeg -framerate 60 -loop 1 -i "/Users/mazihan_1/Desktop/MISC/图像/g324.jpeg" -i https://radio-stream.nhk.jp/hls/live/2023229/nhkradiruakr1/master48k.m3u8 -http_persistent 0 -vf "scale=1920:1080" -c:v libx264 -c:a aac -ar 44100 -ac 1 -f flv rtmp://localhost:1935/live/stream`
+    - solution: `ffmpeg -framerate 60 -loop 1 -i https://www.nhk.or.jp/prog/img/324/g324.jpg -i https://radio-stream.nhk.jp/hls/live/2023229/nhkradiruakr1/master48k.m3u8 -http_persistent 0 -vf "scale=1920:1080" -c:v libx264 -c:a aac -ar 44100 -ac 1 -f flv rtmp://localhost:1935/live/stream`
         - problem: broken pipe for the video
         - solution: frame rate set above 30
             - problem: broken video frame
