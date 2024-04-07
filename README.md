@@ -28,9 +28,13 @@ https://www.bilibili.com/read/cv1083415/
     - solution: jpeg + x264
           - steps: `sudo apt-get install libx264-dev`
           - steps: `./configure --enable-gpl --enable-libx264 --enable-openssl --enable-nonfree` (ssl version >= 3.0.0)
-    - solution: `ffmpeg -framerate 60 -loop 1 -i https://www.nhk.or.jp/prog/img/324/g324.jpg -i https://radio-stream.nhk.jp/hls/live/2023229/nhkradiruakr1/master48k.m3u8 -http_persistent 0 -vf "scale=1920:1080" -c:v libx264 -c:a aac -ar 44100 -ac 1 -f flv rtmp://localhost:1935/live/stream`
+    - solution: `ffmpeg -framerate 60 -loop 1 -i "./g324.jpg" -i https://radio-stream.nhk.jp/hls/live/2023229/nhkradiruakr1/master48k.m3u8 -http_persistent 0 -vf "scale=1920:1080" -c:v libx264 -c:a aac -ar 44100 -ac 1 -f flv rtmp://localhost:1935/live/stream`
         - problem: broken pipe for the video
-        - solution: frame rate set above 30
-            - problem: broken video frame
+        - assertion: frame rate set above 30
+        - problem: broken video frame
+            - solution: use original resolution
     - problem: Failed to update header with correct duration / Failed to update header with correct filesize
-    - assertion: .m2u8 files not updated
+        - assertion: .m2u8 files not updated
+
+# progress 4
+- target1: nhk <-(ffmpeg/m3u8) jp vps (nginx stream server)-> <-(ffmpeg) local server 
