@@ -37,4 +37,6 @@ https://www.bilibili.com/read/cv1083415/
         - assertion: .m2u8 files not updated
 
 # progress 4
-- target1: nhk <-(ffmpeg/m3u8) jp vps (nginx stream server)-> <-(ffmpeg) local server 
+- target1: nhk <-(ffmpeg/m3u8) jp vps (nginx stream server)-> <-(ffmpeg) local server
+    - solution: ffmpeg -re -i http://45.32.60.242:8088/hls/stream.m3u8 -c:v copy -c:a aac -ar 44100 -ac 1 -maxrate 500k -bufsize 1000k -f flv
+        - note: re flag to make sure the processing speed is the same as raw input
