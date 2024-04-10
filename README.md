@@ -38,7 +38,7 @@ https://www.bilibili.com/read/cv1083415/
 
 # progress 4
 - target1: nhk <-(ffmpeg/m3u8) jp vps (nginx stream server)-> <-(ffmpeg) local server
-    - solution: ffmpeg -re -i http://45.32.60.242:8088/hls/stream.m3u8 -c:v copy -c:a aac -ar 44100 -ac 1 -maxrate 500k -bufsize 1000k -f flv
+    - solution: `ffmpeg -re -i http://45.32.60.242:8088/hls/stream.m3u8 -c:v copy -c:a aac -ar 44100 -ac 1 -maxrate 5000k -bufsize 20000k -f flv`
         - note: re flag to make sure the processing speed is the same as raw input
 
 # progress 5
@@ -48,4 +48,9 @@ https://www.bilibili.com/read/cv1083415/
     - step1.5: `sudo python3.8 $(which yt-dlp) -f 232 -g https://www.youtube.com/live/Lfl2Nj_QRXU?si=gyGJykghI9zz0oBs > ytb.list.txt`
     - step2: `ffmpeg -re -i $(cat ytb.list.txt) -re -i http://45.32.60.242:8088/hls/stream.m3u8  -map 0:v -map 1:a -c:v copy -c:a aac -f flv <url>`
     - solution2: `ffmpeg -re -i $(cat ytb.list.txt) -re -i https://radio-stream.nhk.jp/hls/live/2023229/nhkradiruakr1/master48k.m3u8 -map 0:v -map 1:a -c:v copy -c:a aac -f flv rtmp://localhost:1935/live/stream`
+- problems: timeout for the youtube stream
 
+# progress 5
+- problem: the hk_server is not stable, may hanging at fetching the .ts file, while the `-reconnect 1` flag is not working
+    - solution: use the jp_server to directly push the .ts file to bili
+    - patch: use crontab to restart the `ffmpeg` command and fetch the .m3u8 file every 30 minutes to avoid the timeout
