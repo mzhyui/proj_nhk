@@ -54,3 +54,7 @@ https://www.bilibili.com/read/cv1083415/
 - problem: the hk_server is not stable, may hanging at fetching the .ts file, while the `-reconnect 1` flag is not working
     - solution: use the jp_server to directly push the .ts file to bili
     - patch: use crontab to restart the `ffmpeg` command and fetch the .m3u8 file every 30 minutes to avoid the timeout
+        - problem: disconnected still
+         - solution: use `while : do done` bash to auto reconnect, while use cron to update the source every 30 minutes
+         - issue: the stream at bili is not stable, lagging every 10 seconds (Browser platform)
+
