@@ -50,7 +50,7 @@ https://www.bilibili.com/read/cv1083415/
     - solution2: `ffmpeg -re -i $(cat ytb.list.txt) -re -i https://radio-stream.nhk.jp/hls/live/2023229/nhkradiruakr1/master48k.m3u8 -map 0:v -map 1:a -c:v copy -c:a aac -f flv rtmp://localhost:1935/live/stream`
 - problems: timeout for the youtube stream
 
-# progress 5
+# progress 6
 - problem: the hk_server is not stable, may hanging at fetching the .ts file, while the `-reconnect 1` flag is not working
     - solution: use the jp_server to directly push the .ts file to bili
     - patch: use crontab to restart the `ffmpeg` command and fetch the .m3u8 file every 30 minutes to avoid the timeout
